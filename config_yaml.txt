@@ -1,0 +1,8 @@
+mongodb:
+  uri: <string>
+
+  databases:
+  
+    sales_data_warehouse:
+      key: <string>
+      collection: <string>
