@@ -1,5 +1,5 @@
 import yaml
-from pydantic import BaseSettings
+from pydantic import BaseModel
 from pymongo import MongoClient
 
 
@@ -9,12 +9,11 @@ def get_db_connection():
     return db_config
 
 
-class Client(BaseSettings):
-    uri: str
-    client: MongoClient = None
-
-    def connect(self):
+class Client:
+    def __init__(self, uri: str):
+        self.uri = uri
         self.client = MongoClient(self.uri)
+        
 
 
 DB_CONFIG = get_db_connection()
@@ -32,7 +31,7 @@ assert (
 
 
 client = Client(uri=DB_CONFIG["mongodb"]["uri"])
-client.connect()
+# client.connect()
 
 dwh = client.client[BUSSE_SALES_DATA][DATA_WAREHOUSE]
 
